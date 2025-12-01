@@ -2,7 +2,7 @@
 
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
-import { Database } from '@/supabase/functions/_lib/database';
+import { Database } from '@/lib/types/database';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';

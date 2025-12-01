@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import { Database, Tenant, User, get_user_tenant_id } from '../supabase/functions/_lib/database'
+import { Database, Tenant, User } from '@/lib/types/database'
 
 export class TenantManager {
   private supabase: ReturnType<typeof createClient<Database>>

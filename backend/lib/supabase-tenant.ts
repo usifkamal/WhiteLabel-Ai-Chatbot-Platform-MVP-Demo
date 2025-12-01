@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import { Database } from '../supabase/functions/_lib/database'
+import { Database } from '@/lib/types/database'
 import { TenantManager } from './tenant-utils'
 
 export class SupabaseTenantClient {

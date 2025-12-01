@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { Database } from '../../../supabase/functions/_lib/database'
+import { Database } from '@/lib/types/database'
 import { SupabaseTenantClient } from '../../../../lib/supabase-tenant'
 import { createGeminiEmbeddings } from '../../../../lib/gemini-embeddings'
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'

@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { Database } from '../../../supabase/functions/_lib/database'
+import { Database } from '@/lib/types/database'
 import { createGeminiEmbeddings } from '../../../../lib/gemini-embeddings'
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import { Document } from 'langchain/document'
+
+export const runtime = 'nodejs'
 
 // Authenticate tenant via API key
 async function authenticateTenant(apiKey: string): Promise<string | null> {
