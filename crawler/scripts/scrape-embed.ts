@@ -2,7 +2,7 @@ import { Document } from 'langchain/document';
 import * as fs from 'fs/promises';
 import { CustomWebLoader } from '@/utils/custom_web_loader';
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { Embeddings, OpenAIEmbeddings } from 'langchain/embeddings/openai';
+import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
 import { SupabaseVectorStore } from 'langchain/vectorstores/supabase';
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
 import { supabaseClient } from '@/utils/supabase-client';
@@ -36,10 +36,14 @@ async function extractDataFromUrls(urls: string[]): Promise<Document[]> {
 async function embedDocuments(
   client: SupabaseClient,
   docs: Document[],
-  embeddings: Embeddings,
+  embeddings: OpenAIEmbeddings,
 ) {
   console.log('creating embeddings...');
-  await SupabaseVectorStore.fromDocuments(client, docs, embeddings);
+  await SupabaseVectorStore.fromDocuments(docs, embeddings, {
+    client,
+    tableName: 'documents',
+    queryName: 'match_documents',
+  });
   console.log('embeddings successfully stored in supabase');
 }
 

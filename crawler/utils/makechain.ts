@@ -1,4 +1,5 @@
 import { OpenAI } from 'langchain/llms/openai';
+import { CallbackManager } from 'langchain/callbacks';
 import { LLMChain, ChatVectorDBQAChain, loadQAChain } from 'langchain/chains';
 import { SupabaseVectorStore } from 'langchain/vectorstores/supabase';
 import { PromptTemplate } from 'langchain/prompts';
@@ -37,9 +38,11 @@ export const makeChain = (
     new OpenAI({
       temperature: 0,
       streaming: Boolean(onTokenStream),
-      callbackManager: {
-        handleNewToken: onTokenStream,
-      },
+      callbackManager: onTokenStream
+        ? CallbackManager.fromHandlers({
+            handleLLMNewToken: onTokenStream,
+          })
+        : undefined,
     }),
     { prompt: QA_PROMPT },
   );

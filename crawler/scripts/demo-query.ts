@@ -10,8 +10,12 @@ const model = openai;
 
 async function searchForDocs() {
   const vectorStore = await SupabaseVectorStore.fromExistingIndex(
-    supabaseClient,
     new OpenAIEmbeddings(),
+    {
+      client: supabaseClient,
+      tableName: 'documents',
+      queryName: 'match_documents',
+    },
   );
 
   /*uncomment below to test similarity search */

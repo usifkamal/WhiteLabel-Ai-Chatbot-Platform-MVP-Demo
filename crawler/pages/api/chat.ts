@@ -17,10 +17,14 @@ export default async function handler(
   // OpenAI recommends replacing newlines with spaces for best results
   const sanitizedQuestion = question.trim().replaceAll('\n', ' ');
 
-  /* create vectorstore*/
+  /* create vectorstore */
   const vectorStore = await SupabaseVectorStore.fromExistingIndex(
-    supabaseClient,
     new OpenAIEmbeddings(),
+    {
+      client: supabaseClient,
+      tableName: 'documents',
+      queryName: 'match_documents',
+    },
   );
 
   res.writeHead(200, {
